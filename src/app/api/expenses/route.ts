@@ -1,9 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+
+// Mark this route as dynamic to prevent static generation
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET(request: NextRequest) {
   try {
-    // Ensure database connection is available
+    // Lazy load Prisma client to avoid build-time issues
+    const { prisma } = await import('@/lib/prisma');
+
     if (!prisma) {
       throw new Error('Database connection not available');
     }
@@ -73,7 +78,9 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Ensure database connection is available
+    // Lazy load Prisma client to avoid build-time issues
+    const { prisma } = await import('@/lib/prisma');
+
     if (!prisma) {
       throw new Error('Database connection not available');
     }

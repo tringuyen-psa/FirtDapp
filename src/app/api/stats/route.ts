@@ -1,8 +1,14 @@
-import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
+
+// Mark this route as dynamic to prevent static generation
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 export async function GET() {
   try {
+    // Lazy load Prisma client to avoid build-time issues
+    const { prisma } = await import('@/lib/prisma');
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 

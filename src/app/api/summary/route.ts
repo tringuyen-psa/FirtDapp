@@ -1,10 +1,16 @@
-import { prisma } from '@/lib/prisma'
 import { NextResponse } from 'next/server'
+
+// Mark this route as dynamic to prevent static generation
+export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
 
 const MEMBERS = ['Trí', 'Long', 'Đức', 'Đạt', 'Toàn'];
 
 export async function GET() {
   try {
+    // Lazy load Prisma client to avoid build-time issues
+    const { prisma } = await import('@/lib/prisma');
+
     const expenses = await prisma.expense.findMany();
 
     const summaries = MEMBERS.map(member => {
