@@ -40,15 +40,24 @@ export async function GET() {
 
     const stats = {
       today: {
-        total: todayExpenses.reduce((sum, e) => sum + Number(e.amount), 0),
+        total: todayExpenses.reduce((sum, e) => {
+          const amount = parseFloat(e.amount.toString());
+          return sum + amount;
+        }, 0),
         count: todayExpenses.length
       },
       week: {
-        total: weekExpenses.reduce((sum, e) => sum + Number(e.amount), 0),
+        total: weekExpenses.reduce((sum, e) => {
+          const amount = parseFloat(e.amount.toString());
+          return sum + amount;
+        }, 0),
         count: weekExpenses.length
       },
       month: {
-        total: monthExpenses.reduce((sum, e) => sum + Number(e.amount), 0),
+        total: monthExpenses.reduce((sum, e) => {
+          const amount = parseFloat(e.amount.toString());
+          return sum + amount;
+        }, 0),
         count: monthExpenses.length
       }
     };
