@@ -5,9 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
+    "build:prod": "NODE_ENV=production prisma generate && next build",
+    "build:staging": "NODE_ENV=staging prisma generate && next build",
     "start": "next start",
+    "start:prod": "NODE_ENV=production next start",
+    "start:staging": "NODE_ENV=staging next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "type-check": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
     "next": "^14.0.0",
