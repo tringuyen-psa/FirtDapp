@@ -1,8 +1,10 @@
 {
-  "/expenses/page": "app/expenses/page.js",
-  "/api/expenses/route": "app/api/expenses/route.js",
-  "/page": "app/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/api/stats/route": "app/api/stats/route.js",
+  "/api/expenses/route": "app/api/expenses/route.js",
+  "/expenses/page": "app/expenses/page.js",
+  "/api/summary/route": "app/api/summary/route.js",
+  "/page": "app/page.js",
   "/summary/page": "app/summary/page.js",
-  "/api/summary/route": "app/api/summary/route.js"
+  "/expenses/add/page": "app/expenses/add/page.js"
 }

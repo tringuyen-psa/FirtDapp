@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import MemberSummary from '@/components/summary/MemberSummary';
 import BalanceChart from '@/components/charts/BalanceChart';
+import StatisticsCards from '@/components/StatisticsCards';
 import { MemberSummary as MemberSummaryType } from '@/types/expense';
 
 export default function SummaryPage() {
@@ -114,6 +115,9 @@ export default function SummaryPage() {
           </div>
         ) : (
           <>
+            {/* Statistics Cards */}
+            <StatisticsCards />
+
             {/* Overview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white shadow-md rounded-lg p-6">

@@ -1,4 +1,4 @@
-// File: /home/nvt/Music/Dự Án/tientro/src/app/api/summary/route.ts
+// File: /home/nvt/Music/Dự Án/FirtDapp/src/app/api/summary/route.ts
 import * as entry from '../../../../../src/app/api/summary/route.js'
 import type { NextRequest } from 'next/server.js'
 
