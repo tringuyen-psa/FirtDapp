@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ExpenseFilters } from '@/types/expense';
+import type { ExpenseFilters } from '@/types/expense';
 import { useDebounce } from '@/hooks/useDebounce';
 import { getMemberColor } from '@/lib/memberColors';
 
@@ -13,8 +13,8 @@ const MEMBERS = ['Tất cả', 'Trí', 'Long', 'Đức', 'Đạt', 'Toàn', 'Qu�
 
 export default function ExpenseFilters({ onFiltersChange }: ExpenseFiltersProps) {
   const [filters, setFilters] = useState<ExpenseFilters>({
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
+    month: String(new Date().getMonth() + 1),
+    year: String(new Date().getFullYear()),
     payer: 'Tất cả',
     consumers: []
   });
@@ -48,7 +48,7 @@ export default function ExpenseFilters({ onFiltersChange }: ExpenseFiltersProps)
           </label>
           <select
             value={filters.month}
-            onChange={(e) => setFilters({ ...filters, month: parseInt(e.target.value) })}
+            onChange={(e) => setFilters({ ...filters, month: e.target.value })}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {months.map(month => (

@@ -12,8 +12,8 @@ export default function ExpensesPage() {
 
   // Initial filters for current month
   const initialFilters: ExpenseFiltersType = {
-    month: new Date().getMonth() + 1,
-    year: new Date().getFullYear(),
+    month: String(new Date().getMonth() + 1),
+    year: String(new Date().getFullYear()),
     payer: 'Tất cả',
     consumers: []
   };
