@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // App Router is now stable, no longer needs experimental flag
+  // Specify src directory
+  pageExtensions: ['tsx', 'ts'],
+  experimental: {
+    serverComponentsExternalPackages: ['@prisma/client']
+  },
+  // Ensure proper app directory resolution
+  // Remove any conflicting output config
 }
 
 module.exports = nextConfig

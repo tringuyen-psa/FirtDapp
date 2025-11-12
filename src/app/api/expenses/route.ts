@@ -1,8 +1,13 @@
-import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
+import { prisma } from '@/lib/prisma'
 
 export async function GET(request: NextRequest) {
   try {
+    // Ensure database connection is available
+    if (!prisma) {
+      throw new Error('Database connection not available');
+    }
+
     const { searchParams } = new URL(request.url);
     const month = searchParams.get('month');
     const year = searchParams.get('year');
@@ -45,8 +50,14 @@ export async function GET(request: NextRequest) {
       take: limit ? parseInt(limit) : undefined
     });
 
+    // Convert Decimal to number for JSON serialization
+    const serializedExpenses = expenses.map(expense => ({
+      ...expense,
+      amount: Number(expense.amount)
+    }));
+
     // Add Cache-Control headers for better caching
-    return NextResponse.json(expenses, {
+    return NextResponse.json(serializedExpenses, {
       headers: {
         'Cache-Control': 'public, max-age=60, stale-while-revalidate=300'
       }
@@ -54,7 +65,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching expenses:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch expenses' },
+      { error: 'Failed to fetch expenses', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }
@@ -62,6 +73,11 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Ensure database connection is available
+    if (!prisma) {
+      throw new Error('Database connection not available');
+    }
+
     const body = await request.json();
 
     const expense = await prisma.expense.create({
@@ -74,11 +90,17 @@ export async function POST(request: NextRequest) {
       }
     });
 
-    return NextResponse.json(expense, { status: 201 });
+    // Convert Decimal to number for JSON serialization
+    const serializedExpense = {
+      ...expense,
+      amount: Number(expense.amount)
+    };
+
+    return NextResponse.json(serializedExpense, { status: 201 });
   } catch (error) {
     console.error('Error creating expense:', error);
     return NextResponse.json(
-      { error: 'Failed to create expense' },
+      { error: 'Failed to create expense', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     );
   }

@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,21 +8,21 @@ datasource db {
 }
 
 model Expense {
-  id           String   @id @default(cuid())
-  amount       Decimal  @db.Decimal(10, 2)
-  description  String
-  payer        String   // 'Trí' | 'Long' | 'Đức' | 'Đạt' | 'Toàn' | 'Quỹ'
-  consumers    String[] // array of consumers
-  expenseDate  DateTime @db.Date
-  createdAt    DateTime @default(now())
+  id          String   @id @default(cuid())
+  amount      Decimal  @db.Decimal(10, 2)
+  description String
+  payer       String
+  consumers   String[]
+  expenseDate DateTime @db.Date
+  createdAt   DateTime @default(now())
 
   @@map("expenses")
 }
 
 model SettlementTransaction {
   id        String   @id @default(cuid())
-  fromUser  String   // người trả tiền
-  toUser    String   // người nhận tiền
+  fromUser  String
+  toUser    String
   amount    Decimal  @db.Decimal(10, 2)
   date      DateTime @db.Date
   settled   Boolean  @default(false)
